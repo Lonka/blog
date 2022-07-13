@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Vite 填加本地端 Mockup Server 透過 vite-plugin-mock | Lonka's Blog</title><meta name="keywords" content="vite,plugin,mockup"><meta name="author" content="Lonka Liu"><meta name="copyright" content="Lonka Liu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="提供本地端的 RESTful API 模擬服務">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vite 填加本地端 Mockup Server 透過 vite-plugin-mock">
+<meta property="og:url" content="https://lonka.github.io/blog/2022/07/10/vite-append-local-mockup-service/index.html">
+<meta property="og:site_name" content="Lonka&#39;s Blog">
+<meta property="og:description" content="提供本地端的 RESTful API 模擬服務">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2022-07-10T04:20:00.000Z">
+<meta property="article:modified_time" content="2022-07-12T01:05:05.262Z">
+<meta property="article:author" content="Lonka Liu">
+<meta property="article:tag" content="vite">
+<meta property="article:tag" content="mockup">
+<meta property="article:tag" content="plugin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/blog/img/favicon.png"><link rel="canonical" href="https://lonka.github.io/blog/2022/07/10/vite-append-local-mockup-service/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/blog/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-83560513-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-83560513-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/blog/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Lonka Liu","link":"連結: ","source":"來源: Lonka's Blog","info":"著作權歸作者所有。商業轉載請聯絡作者獲得授權，非商業轉載請註明出處。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Vite 填加本地端 Mockup Server 透過 vite-plugin-mock',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-07-12 09:05:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/blog/uploads/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/blog/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/blog/tags/"><div class="headline">標籤</div><div class="length-num">20</div></a><a href="/blog/categories/"><div class="headline">分類</div><div class="length-num">8</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/blog/about/"><i class="fa-fw fas fa-heart"></i><span> 關於</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/blog/">Lonka's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/blog/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/blog/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/blog/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/blog/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/blog/about/"><i class="fa-fw fas fa-heart"></i><span> 關於</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Vite 填加本地端 Mockup Server 透過 vite-plugin-mock</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2022-07-10T04:20:00.000Z" title="發表於 2022-07-10 12:20:00">2022-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2022-07-12T01:05:05.262Z" title="更新於 2022-07-12 09:05:05">2022-07-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/blog/categories/Vite/">Vite</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字數總計:</span><span class="word-count">648</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀時長:</span><span>3分鐘</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Vite 填加本地端 Mockup Server 透過 vite-plugin-mock"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h1><p>提供本地端的 RESTful API 模擬服務，在開發前端工作時，可以一併透過模擬數據的方式，測試並完善開發內容。</p>
+<p>vite-plugin-mock 的說明可以看 GitHub 的 <a target="_blank" rel="noopener" href="https://github.com/vbenjs/vite-plugin-mock/blob/main/README.zh_CN.md">README</a></p>
+<h1 id="開發"><a href="#開發" class="headerlink" title="開發"></a>開發</h1><div class="note info flat"><p>建議透過 <a href="/blog/2022/06/18/vite-quick-start-template-vitesse">Vitesse</a> 樣版進行測試</p>
+</div>
+
+<h2 id="安裝-vite-plugin-mock"><a href="#安裝-vite-plugin-mock" class="headerlink" title="安裝 vite-plugin-mock"></a>安裝 vite-plugin-mock</h2><p>透過喜歡的方式進行安裝 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/vite-plugin-mock">vite-plugin-mock</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm i  mockjs -S</span><br><span class="line">npm i vite-plugin-mock -D</span><br><span class="line"></span><br><span class="line">pnpm i  mockjs -S</span><br><span class="line">pnpm i vite-plugin-mock -D</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vite-中填加-Plugin"><a href="#Vite-中填加-Plugin" class="headerlink" title="Vite 中填加 Plugin"></a>Vite 中填加 Plugin</h2><p>在根目錄中找到 <code>./vite.config.ts</code> 並加入 vite-plugin-mock 的 plugin。</p>
+<p>相關設定可以參考 GitHub 的 <a target="_blank" rel="noopener" href="https://github.com/vbenjs/vite-plugin-mock/blob/main/README.zh_CN.md#%E4%BD%BF%E7%94%A8">README</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; viteMockServe &#125; <span class="keyword">from</span> <span class="string">&#x27;vite-plugin-mock&#x27;</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="attr">plugins</span>: [</span><br><span class="line">    <span class="title function_">viteMockServe</span>(&#123;</span><br><span class="line">        <span class="comment">// 讀模擬 .ts 時要忽略的文件（_開頭的就忽略）</span></span><br><span class="line">        <span class="attr">ignore</span>: <span class="regexp">/^\_/</span>,</span><br><span class="line">        <span class="comment">// 模擬 .ts 文件的存儲資料夾</span></span><br><span class="line">        <span class="attr">mockPath</span>: <span class="string">&#x27;./mock&#x27;</span>,</span><br><span class="line">        <span class="comment">// 當 prodEnabled=true 時，injectCode 會被打包進去，實作動態打包。如果直接寫在 main.ts 中，不管如何都會打包</span></span><br><span class="line">        <span class="attr">injectCode</span>: <span class="string">`</span></span><br><span class="line"><span class="string">        import &#123; setupProdMockServer &#125; from &#x27;./mock/_createProductionServer&#x27;;</span></span><br><span class="line"><span class="string">        setupProdMockServer();</span></span><br><span class="line"><span class="string">        `</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="建立-Mockup-Server-啟動入口"><a href="#建立-Mockup-Server-啟動入口" class="headerlink" title="建立 Mockup Server 啟動入口"></a>建立 Mockup Server 啟動入口</h2><p>建立 <code>./mock/_createProductionServer.ts</code></p>
+<div class="note danger flat"><p>mock 的資料夾位置一定要對應到 vite.config.ts 中的 mockPath</p>
+</div>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createProdMockServer &#125; <span class="keyword">from</span> <span class="string">&#x27;vite-plugin-mock/es/createProdMockServer&#x27;</span></span><br><span class="line"><span class="comment">// 透過 Vite 直接載入所有的模擬 .ts</span></span><br><span class="line"><span class="keyword">const</span> modules = <span class="keyword">import</span>.<span class="property">meta</span>.<span class="title function_">globEager</span>(<span class="string">&#x27;./**/*.ts&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把每個模擬 .ts 的 export default 存入 array</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">mockModules</span>: any[] = []</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">keys</span>(modules).<span class="title function_">forEach</span>(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (key.<span class="title function_">includes</span>(<span class="string">&#x27;/_&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">  mockModules.<span class="title function_">push</span>(...modules[key].<span class="property">default</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 啟動 Mockup Server 並告知要載入的模擬 .ts 列表</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">setupProdMockServer</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title function_">createProdMockServer</span>(mockModules)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="加入-Response-的共用格式"><a href="#加入-Response-的共用格式" class="headerlink" title="加入 Response 的共用格式"></a>加入 Response 的共用格式</h2><p>封裝一層回傳格式，確保想要的 HTTP Status Code ，會回傳統一的格式。</p>
+<p>建立 <code>./mock/_util.ts</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Mock</span> <span class="keyword">from</span> <span class="string">&#x27;mockjs&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTP Status Code 為 200 時的統一回傳格式</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">resultSuccess</span>(<span class="params">result: any, &#123; message = <span class="string">&#x27;ok&#x27;</span> &#125; = &#123;&#125;</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Mock</span>.<span class="title function_">mock</span>(&#123;</span><br><span class="line">    <span class="attr">code</span>: <span class="number">200</span>,</span><br><span class="line">    result,</span><br><span class="line">    message,</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;success&#x27;</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="建立模擬的-ts-檔案"><a href="#建立模擬的-ts-檔案" class="headerlink" title="建立模擬的 .ts 檔案"></a>建立模擬的 .ts 檔案</h2><p>建立 <code>./mock/test/test.ts</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; resultSuccess &#125; <span class="keyword">from</span> <span class="string">&#x27;../_util&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/api/v1/test&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">1000</span>,</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">    <span class="attr">response</span>: <span class="function">(<span class="params">&#123; query &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">resultSuccess</span>(query)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/api/v1/test&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">1000</span>,</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    <span class="attr">response</span>: <span class="function">(<span class="params">&#123; body &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">resultSuccess</span>(body)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/api/v1/test/:id&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">1000</span>,</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;put&#x27;</span>,</span><br><span class="line">    <span class="attr">response</span>: <span class="function">(<span class="params">&#123; query, body &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">resultSuccess</span>(&#123;</span><br><span class="line">        <span class="attr">id</span>: query.<span class="property">id</span>,</span><br><span class="line">        <span class="attr">data</span>: body,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/api/v1/test/:id&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">1000</span>,</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;delete&#x27;</span>,</span><br><span class="line">    <span class="attr">response</span>: <span class="function">(<span class="params">&#123; query &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">resultSuccess</span>(&#123;</span><br><span class="line">        <span class="attr">id</span>: query.<span class="property">id</span>,</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;delete Name&#x27;</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h1><p>透過 Thunder Client 去確認 Mockup Server 是否有正有啟動</p>
+<mark class="hl-label blue">GET</mark>  /api/v1/test?id=3
+<p><img src="/blog/uploads/vite-append-local-mockup-service/1.png"></p>
+<mark class="hl-label orange">POST</mark>  /api/v1/test
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// body</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="string">&quot;new name&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/blog/uploads/vite-append-local-mockup-service/2.png"></p>
+<mark class="hl-label green">PUT</mark>  /api/v1/test/6
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// body</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span><span class="string">&quot;edit name&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/blog/uploads/vite-append-local-mockup-service/3.png"></p>
+<mark class="hl-label red">DELETE</mark>  /api/v1/test/1
+<p><img src="/blog/uploads/vite-append-local-mockup-service/4.png"></p>
+<div class="note primary flat"><p><a target="_blank" rel="noopener" href="https://github.com/Lonka/vue3_sample_for_blog/tree/vite-append-local-mockup-service">Sample Code Download</a></p>
+</div>
+
+<h1 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/vite-plugin-mock">vite-plugin-mock</a><br><a target="_blank" rel="noopener" href="https://github.com/jekip/naive-ui-admin">Naive UI Admin</a><br><a href="/blog/2022/06/18/vite-quick-start-template-vitesse">Vitesse</a><br><a target="_blank" rel="noopener" href="https://github.com/Lonka/vue3_sample_for_blog/tree/vite-append-local-mockup-service">Sample Code Download</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://lonka.github.io/blog">Lonka Liu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章連結: </span><span class="post-copyright-info"><a href="https://lonka.github.io/blog/2022/07/10/vite-append-local-mockup-service/">https://lonka.github.io/blog/2022/07/10/vite-append-local-mockup-service/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版權聲明: </span><span class="post-copyright-info">本部落格所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 許可協議。轉載請註明來自 <a href="https://lonka.github.io/blog" target="_blank">Lonka's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/blog/tags/vite/">vite</a><a class="post-meta__tags" href="/blog/tags/mockup/">mockup</a><a class="post-meta__tags" href="/blog/tags/plugin/">plugin</a></div><div class="post_share"><div class="addtoany"><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><a class="a2a_button_facebook"></a><a class="a2a_button_twitter"></a><a class="a2a_button_wechat"></a><a class="a2a_button_email"></a><a class="a2a_button_line"></a><a class="a2a_button_copy_link"></a><a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a></div></div><script async="async" src="https://static.addtoany.com/menu/page.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/blog/2022/07/04/vue3-append-axios-in-vue3/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/blog/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Vue3 - 透過 TypeScript 在 Vite 中添加 Axios</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div></div><div class="comment-wrap"><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">簡介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%96%8B%E7%99%BC"><span class="toc-number">2.</span> <span class="toc-text">開發</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-vite-plugin-mock"><span class="toc-number">2.1.</span> <span class="toc-text">安裝 vite-plugin-mock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vite-%E4%B8%AD%E5%A1%AB%E5%8A%A0-Plugin"><span class="toc-number">2.2.</span> <span class="toc-text">Vite 中填加 Plugin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-Mockup-Server-%E5%95%9F%E5%8B%95%E5%85%A5%E5%8F%A3"><span class="toc-number">2.3.</span> <span class="toc-text">建立 Mockup Server 啟動入口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5-Response-%E7%9A%84%E5%85%B1%E7%94%A8%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.4.</span> <span class="toc-text">加入 Response 的共用格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E6%A8%A1%E6%93%AC%E7%9A%84-ts-%E6%AA%94%E6%A1%88"><span class="toc-number">2.5.</span> <span class="toc-text">建立模擬的 .ts 檔案</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">3.</span> <span class="toc-text">測試</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">參考</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 By Lonka Liu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://lonka.github.io/blog">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="簡繁轉換">繁</button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/blog/js/utils.js"></script><script src="/blog/js/main.js"></script><script src="/blog/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'https://lonka.github.io/blog/2022/07/10/vite-append-local-mockup-service/'
+    this.page.identifier = '2022/07/10/vite-append-local-mockup-service/'
+    this.page.title = 'Vite 填加本地端 Mockup Server 透過 vite-plugin-mock'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://lonkaliu.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Disqus' === 'Disqus' || !true) {
+  if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
