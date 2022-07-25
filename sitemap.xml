@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lonka.github.io/blog/2022/07/25/common-c-command/</loc>
+    
+    <lastmod>2022-07-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lonka.github.io/blog/2016/10/03/concept-mes/</loc>
     
     <lastmod>2022-07-14</lastmod>
@@ -121,148 +130,155 @@
 
   <url>
     <loc>https://lonka.github.io/blog</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://lonka.github.io/blog/tags/Command/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <loc>https://lonka.github.io/blog/tags/Redfish/</loc>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/Docker/</loc>
-    <lastmod>2022-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lonka.github.io/blog/tags/%E9%80%9A%E7%94%A8/</loc>
-    <lastmod>2022-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lonka.github.io/blog/tags/Redfish/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/GIT/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lonka.github.io/blog/tags/Command/</loc>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lonka.github.io/blog/tags/%E9%80%9A%E7%94%A8/</loc>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/Vite/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/Vitesse/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/template/</loc>
-    <lastmod>2022-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lonka.github.io/blog/tags/Vue3/</loc>
-    <lastmod>2022-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lonka.github.io/blog/tags/TypeScript/</loc>
-    <lastmod>2022-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lonka.github.io/blog/tags/Axios/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/vite/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/mockup/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/plugin/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lonka.github.io/blog/tags/Vue3/</loc>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lonka.github.io/blog/tags/TypeScript/</loc>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lonka.github.io/blog/tags/Axios/</loc>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/Visual-Studio-Code/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/HotKey/</loc>
-    <lastmod>2022-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lonka.github.io/blog/tags/%E6%A6%82%E5%BF%B5/</loc>
-    <lastmod>2022-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lonka.github.io/blog/tags/MES/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/C/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lonka.github.io/blog/tags/%E6%A6%82%E5%BF%B5/</loc>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lonka.github.io/blog/tags/MES/</loc>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lonka.github.io/blog/tags/C/</loc>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/tags/WPF/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -270,57 +286,57 @@
 
   
   <url>
-    <loc>https://lonka.github.io/blog/categories/%E5%85%B6%E5%AE%83/</loc>
-    <lastmod>2022-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://lonka.github.io/blog/categories/Redfish/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lonka.github.io/blog/categories/%E5%85%B6%E5%AE%83/%E9%80%9A%E7%94%A8/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <loc>https://lonka.github.io/blog/categories/%E5%85%B6%E5%AE%83/</loc>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/categories/Vite/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/categories/Vue3/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lonka.github.io/blog/categories/%E5%85%B6%E5%AE%83/%E9%80%9A%E7%94%A8/</loc>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/categories/%E5%85%B6%E5%AE%83/%E6%A6%82%E5%BF%B5/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/categories/C/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lonka.github.io/blog/categories/WPF/</loc>
-    <lastmod>2022-07-14</lastmod>
+    <lastmod>2022-07-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
